@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import utils.Node;
-public class Chan02BuildBinaryTree {
+public class Zen02BuildBinaryTree {
 
     public static void main(String[] args) {
 

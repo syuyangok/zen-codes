@@ -1,4 +1,4 @@
-public class Chan01Sum{
+public class Zen01Sum{
 
     public static void main(String[] args){
 
