@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import utils.Node;
@@ -19,6 +21,16 @@ public class Zen03PathSums {
         System.out.println();
         List<Integer> sums2 = getPathSumsLoop(root);
         System.out.println(sums2);
+
+        System.out.println();
+        List<Integer> sums3 = getPathSumsRecurFull(root);
+        System.out.println(sums3);
+
+        System.out.println();
+        Map<Node, Integer> sums4 = getPathSumsMap(root);
+        for(Map.Entry<Node, Integer> entry: sums4.entrySet()){
+            System.out.println(entry.getKey().val + " : " + entry.getValue());
+        }
     }
 
     public static void getPathSumsRecur(Node cur, int parentSum, List<Integer> sums){
@@ -32,6 +44,25 @@ public class Zen03PathSums {
         //If not, recursive call children
         getPathSumsRecur(cur.left, currentSum, sums);
         getPathSumsRecur(cur.right, currentSum, sums);
+    }
+
+    public static List<Integer> getPathSumsRecurFull(Node cur){
+        List<Integer> sums = new ArrayList<>();
+        if (cur == null) return sums;
+
+
+        List<Integer> leftSum = getPathSumsRecurFull(cur.left);
+        List<Integer> rightSum = getPathSumsRecurFull(cur.right);
+
+        sums.addAll(leftSum);
+        sums.addAll(rightSum);
+
+        for (int i = 0; i < sums.size(); i++){
+            sums.set(i, sums.get(i) + cur.val);
+        }
+
+        if (sums.isEmpty()) sums.add(cur.val);
+        return sums;
     }
 
     public static List<Integer> getPathSumsLoop(Node root){
@@ -61,8 +92,47 @@ public class Zen03PathSums {
             
         }
 
-
         return sums;
+    }
+
+    public static Map<Node, Integer> getPathSumsMap(Node root){
+
+        Map<Node, Integer> ret = new HashMap<>();
+        Queue<Node> nodeQ = new LinkedList<>();
+        nodeQ.offer(root);
+        ret.put(root, root.val);
+
+        while(!nodeQ.isEmpty()){
+            Node curNode = nodeQ.poll();
+            int curSum = ret.get(curNode);
+
+            // If not leaf, remove curNode from ret map
+            if (curNode.left != null || curNode.right != null) {
+                ret.remove(curNode);
+            }
+
+            if (curNode.left != null) {
+                nodeQ.offer(curNode.left);
+                ret.put(curNode.left, curSum + curNode.left.val);
+            }
+
+            if (curNode.right != null) {
+                nodeQ.offer(curNode.right);
+                ret.put(curNode.right, curSum+ curNode.right.val);
+            }
+
+        }
+
+        return ret;
+    }
+
+    // Path Sum II,  find a path from root to leaf that sums to target, return all paths.
+    public static List<List<Integer>> pathSumRecur(Node root, int targetSum, int parentSum, List<Integer> path, List<List<Integer>> result){
+        if (root == null) return result;
+
+
+        return result;
+
     }
 
 }
