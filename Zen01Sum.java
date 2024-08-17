@@ -6,6 +6,8 @@ public class Zen01Sum{
         System.out.println(sumloop(arr));
         System.out.println(sumRecurBegin(arr, 0));
         System.out.println(sumRecurEnd(arr, arr.length-1));
+        System.out.println(sumWithBinary(arr, 0, arr.length-1));
+
 
     }
 
@@ -30,6 +32,18 @@ public class Zen01Sum{
 
         return arr[end] + sumRecurEnd(arr, end-1);
 
+    }
+
+    public static int sumWithBinary(int[] arr, int left, int right){
+
+//        Exception in thread "main" java.lang.StackOverflowError, when left == right, it never stopped.
+        //        if(left > right) return 0;
+
+        if(left == right) return arr[left];
+
+        int mid = left + (right - left) / 2;
+
+        return sumWithBinary(arr, left, mid) + sumWithBinary(arr, mid+1, right);
     }
 
 
