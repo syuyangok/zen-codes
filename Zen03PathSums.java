@@ -67,7 +67,7 @@ public class Zen03PathSums {
 
     public static List<Integer> getPathSumsLoop(Node root){
 
-        List<Integer> sums = new ArrayList<>();
+        List<Integer> ret = new ArrayList<>();
         Queue<Integer> sumQ = new LinkedList<>();
         Queue<Node> nodeQ = new LinkedList<>();
 
@@ -79,7 +79,7 @@ public class Zen03PathSums {
 
             int sum = sumQ.poll() + cur.val;
 
-            if(cur.left == null && cur.right == null) sums.add(sum);
+            if(cur.left == null && cur.right == null) ret.add(sum);
 
             if (cur.left !=null) {
                 sumQ.offer(sum);
@@ -92,9 +92,12 @@ public class Zen03PathSums {
             
         }
 
-        return sums;
+        return ret;
     }
 
+    // Different vs getPathSumsLoop,  in loop the cur value is not added to sum, need add to sum in the loop, 
+    // in this method, the sum with cur node is passed to the Queue, when cur node passed to the Queue
+    // getPathSumsLoop sumQ is parent sum. This method is current sum (include current node value )
     public static Map<Node, Integer> getPathSumsMap(Node root){
 
         Map<Node, Integer> ret = new HashMap<>();
