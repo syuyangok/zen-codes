@@ -31,12 +31,6 @@ public class Zen03PathSums {
         for(Map.Entry<Node, Integer> entry: sums4.entrySet()){
             System.out.println(entry.getKey().val + " : " + entry.getValue());
         }
-
-        System.out.println();
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> path = new ArrayList<>();
-        pathSumBackTracking(root, 7, 0, path, result);
-        System.out.println(result);
     }
 
     public static void getPathSumsRecur(Node cur, int parentSum, List<Integer> sums){
@@ -135,33 +129,6 @@ public class Zen03PathSums {
         return ret;
     }
 
-    // Path Sum II,  find a path from root to leaf that sums to target, return all paths.
-//    Each path should be returned as a list of the node values, not node references
-    // Not working yet
-    public static List<List<Integer>> pathSumBackTracking(Node root, int targetSum, int parentSum, List<Integer> path, List<List<Integer>> result){
 
-        int sum = parentSum + root.val;
-
-        // If node is a leaf
-        if (root.left == null && root.right == null && sum == targetSum){
-            result.add(new ArrayList<>(path));
-        }
-
-        // Handle children
-        if(root.left != null){
-            path.add(root.left.val);
-            pathSumBackTracking(root.left, targetSum, sum, path, result);
-            path.remove(root.left.val);
-        }
-
-        if (root.right != null){
-            path.add(root.right.val);
-            pathSumBackTracking(root.right, targetSum, sum, path, result);
-            path.remove(root.right.val);
-        }
-
-        return result;
-
-    }
 
 }
